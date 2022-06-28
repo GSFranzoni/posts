@@ -21,7 +21,11 @@ class LikeController extends Controller
             'user_id' => $user->id
         ]);
 
-        Mail::to($post->user)->send(new PostLiked($user, $post));
+        $userAlreadyLikedThisPost = !!$post->likes()->onlyTrashed()->where('user_id', $user->id)->count();
+
+        if (!$userAlreadyLikedThisPost) {
+            Mail::to($post->user)->send(new PostLiked($user, $post));
+        }
 
         return back();
     }
