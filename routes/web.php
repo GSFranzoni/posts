@@ -6,11 +6,14 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserPostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.home.index');
 })->name('home');
+
+Route::get('users/{user}/posts', [ UserPostController::class, 'index' ])->name('users.posts');
 
 Route::get('register', [ RegisterController::class, 'index' ])->name('register');
 Route::post('register', [ RegisterController::class, 'store' ]);
