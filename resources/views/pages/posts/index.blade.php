@@ -40,13 +40,13 @@
                                     {{ $post->body }}
                                 </p>
                             </div>
-                            <div>
+                            @can('delete', $post)
                                 <form action="{{ route('posts.destroy', $post) }}" method="POST" class="mr-1">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500">Delete</button>
                                 </form>
-                            </div>
+                            @endcan
                         </div>
                         <div class="flex items-center gap-2">
                             @auth()

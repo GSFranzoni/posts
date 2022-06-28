@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\UnauthorizedException;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('user', 'likes')->paginate(5);
+        $posts = Post::with('user', 'likes')->latest()->paginate(5);
         return view('pages.posts.index', [
             'posts' => $posts
         ]);
@@ -28,6 +29,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         return back();
