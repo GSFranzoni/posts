@@ -27,7 +27,7 @@
             </form>
             @if($posts->count())
                 @foreach ($posts as $post)
-                    <div class="mb-4">
+                    <div class="my-4">
                         <a href="" class="font-bold">
                             {{ $post->user->username }}
                         </a>
@@ -39,6 +39,7 @@
                         </p>
                     </div>
                 @endforeach
+                {{ $posts->links() }}
             @else
                 <p>There are no posts</p>
             @endif
